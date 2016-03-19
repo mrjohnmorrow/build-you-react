@@ -1,0 +1,89 @@
+<html>
+  <head>
+    <style>
+      .blue { color: steelblue; }
+      .red { color: tomato; }
+    </style>
+  </head>
+  <body>
+    <script>
+      /*** YOU IMPLEMENT ***/
+
+      // text: String
+      //
+      function VText(text) {
+
+      }
+
+
+      // See document.createTextNode()
+      //
+      VText.prototype.render = function() {
+
+      }
+
+      /*
+       *   tag: String,
+       *   props: Object<String, String>,
+       *   children: Array<VText|VElem>
+       */
+      function VElem(tag, props, children) {
+
+      }
+
+      /*
+       *  See the following native DOM API methods:
+       *
+       * document.createElement(tagName)
+       * element.setAttribute(name, value)
+       * element.addEventListener(eventName, handler)
+       * element.appendChild(childNode)
+       */
+      VElem.prototype.render = function() {
+
+      }
+
+      /*** PROVIDED HELPERS ***/
+
+      function el(tag, props, children) {
+        if (Array.isArray(props)) {
+          children = props;
+          props = {};
+        }
+
+        children.forEach(function(child, i) {
+          if (typeof child === 'string') {
+            children[i] = new VText(child);
+          }
+        });
+
+        return new VElem(tag, props, children);
+      }
+
+      function removeChildNodes(elem) {
+        while (elem.firstChild) {
+          var first = elem.firstChild;
+          first.parentNode.removeChild(first);
+        }
+      }
+
+      function mount(elem, tree) {
+        removeChildNodes(elem);
+        elem.appendChild(tree.render());
+      }
+
+      /*** TEST APP ***/
+
+      mount(document.body, el('div', {id: 'root'}, [
+        el('ul', [
+          el('li', {'class': 'red'}, ['item 1']),
+          el('li', {'class': 'blue'}, ['item 2']),
+          el('li', {'class': 'red'}, ['item 3'])
+        ]),
+        el('button', {onclick: function() { alert('clicked') }}, ['hello!'])
+      ]));
+
+
+    </script>
+  </body>
+</html>
