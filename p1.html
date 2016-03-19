@@ -12,6 +12,7 @@
       // text: String
       //
       function VText(text) {
+        this.text = text;
 
       }
 
@@ -19,7 +20,7 @@
       // See document.createTextNode()
       //
       VText.prototype.render = function() {
-
+        return text
       }
 
       /*
@@ -28,7 +29,9 @@
        *   children: Array<VText|VElem>
        */
       function VElem(tag, props, children) {
-
+        this.tag = tag
+        this.props = props || []
+        this.children = children || []
       }
 
       /*
@@ -40,7 +43,12 @@
        * element.appendChild(childNode)
        */
       VElem.prototype.render = function() {
-
+        dom_obj = document.createElement(this.tag)
+        for child in this.children {
+          document.appendChild(child.render())
+        }
+        
+        
       }
 
       /*** PROVIDED HELPERS ***/
